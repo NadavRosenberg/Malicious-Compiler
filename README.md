@@ -4,7 +4,10 @@ Just make the active directory the project's directory using `cd` command and th
 ```
 cmd < EasyInstallerSetup.txt
 ```
-NOTICE: You can delete all the unnecessary files created with the command `cmd < EasyInstallerSetup.txt` with: `cmd < CleanTempFiles.txt`.
+NOTICE: You can delete all the unnecessary files created with the command `cmd < EasyInstallerSetup.txt` with: 
+```
+cmd < CleanTempFiles.txt`
+```
 
 ## Manual Installer setup
 1. First make the active directory the project's directory using `cd` command.
