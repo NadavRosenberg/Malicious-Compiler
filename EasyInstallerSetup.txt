@@ -1,0 +1,12 @@
+cd C:\malicious-compiler
+
+javac TheCompiler.java
+
+jar -cvmf manifest.txt TheCompiler.jar *.class
+
+"C:\Program Files (x86)\Launch4j\launch4jc.exe" C:\malicious-compiler\config\launch4jSettings_javax.xml
+"C:\Program Files (x86)\Launch4j\launch4jc.exe" C:\malicious-compiler\config\launch4jSettings_javad.xml
+"C:\Program Files (x86)\Launch4j\launch4jc.exe" C:\malicious-compiler\config\launch4jSettings_javaf.xml
+"C:\Program Files (x86)\Launch4j\launch4jc.exe" C:\malicious-compiler\config\launch4jSettings_javav.xml
+
+"C:\Program Files (x86)\Inno Setup 6\Compil32.exe" /cc C:\malicious-compiler\config\InstallerSettings.iss

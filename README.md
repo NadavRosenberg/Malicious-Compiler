@@ -20,7 +20,7 @@ jar -cvmf manifest.txt TheCompiler.jar *.class
 NOTICE: The paths may vary.
 5. create the installer:
 
-7. (OPTIONALY) Delete the temp files:
+6. (OPTIONALLY) Delete the temp files:
 ```
 del TheCompiler.class
 del TheCompiler.jar
