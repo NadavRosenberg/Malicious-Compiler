@@ -1,15 +1,25 @@
 # malicious-compiler
-## setup
+## Easy Installer setup
+Just make the active directory the project's directory using `cd` command and then run the EasyInstallerSetup.txt:
+```
+cmd < EasyInstallerSetup.txt
+```
+NOTICE: You can delete all the unnecessary files created with the command `cmd < EasyInstallerSetup.txt` with: `cmd < CleanTempFiles.txt`.
+
+## Manual Installer setup
 1. First make the active directory the project's directory using `cd` command.
-2. To compile the program, type the following command and hit enter:
+
+2. To compile the program, type the following command and hit enter: 
 ```
 javac TheCompiler.java
 ```
 After compilation the .java file gets translated into the .class file(byte code).
+
 3. Now, we will generate our .jar files by using the command:
 ```
 jar -cvmf manifest.txt TheCompiler.jar *.class
 ```
+
 4. In order to run TheCompiler directly from the cli, we need to convert our .jar file we just generated to .exe files using Launch4j. see Docs: http://launch4j.sourceforge.net/docs.html. After Installation of Launch4j, just run:
 ```
 "C:\Program Files (x86)\Launch4j\launch4jc.exe" C:\malicious-compiler\config\launch4jSettings_javax.xml
@@ -18,9 +28,14 @@ jar -cvmf manifest.txt TheCompiler.jar *.class
 "C:\Program Files (x86)\Launch4j\launch4jc.exe" C:\malicious-compiler\config\launch4jSettings_javav.xml
 ```
 NOTICE: The paths may vary.
-5. create the installer:
 
-7. (OPTIONALY) Delete the temp files:
+5. Now we can create the installer by using Inno Setup. Further reading at https://jrsoftware.org/ishelp.phpcreate. After Installation of Inno Setup, just run:
+```
+"C:\Program Files (x86)\Inno Setup 6\Compil32.exe" /cc C:\malicious-compiler\config\InstallerSettings.iss
+```
+NOTICE: This will add environment paths for `C:\Program Files (x86)\TheCompiler`.
+
+6. (OPTIONALY) Delete the temp files:
 ```
 del TheCompiler.class
 del TheCompiler.jar
@@ -31,27 +46,21 @@ del javav.exe
 ```
 
 
-
-Now we can run the program. To run the program, type the following command and hit enter:
-```
-java JavaCompiler
-```
-To make .jar out of .class files:
-```
-jar -cvmf manifest.txt javac.jar *.class
-```
-We can add environment paths for ‘javax’, ‘javad’, ‘javaf’ and ‘javav’ (all the commands that are close to the original ‘javac’ and hope the user will make a mistake). In order to do so we need an .exe file of the program and also set a path to the directory that owns the .exe. It’s possible to build an installer that will add this path for the user.
-
-
-
-
-
 ## How it works
+Just install the compiler using the installer created before and you are good to go.
+
+
+## Explanation
 To compile a Java program, a normal user type:
 ```
 javac program_name.java
 ```
 If the user made a mistake and write `javax`, `javad`, `javaf` or `javav` instead of `javac`, he will run the malicious compiler instead of the original Java's compiler.
 
+
 ## further thinking
-* Build an installer for the compiler that will add an environment path to our malicious compiler. We will create the same malicious compiler in 4 different names: ‘javax’, ‘javad’, ‘javaf’ and ‘javav’ (all the commands that are close to the original ‘javac’ and hope the user will make a mistake).
+* It's possbile to install the compiler on a computer without the user knowing about that at all.
+* It's possible to make the `javac` command run directly the malicious compiler with manipulating the envirement variables. 
+
+## Author
+Built by Nadav Rosenberg and Shlomi Haver
