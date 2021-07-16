@@ -35,9 +35,11 @@ public class TheCompiler {
                 String data = myReader.nextLine();
                 Matcher m = p.matcher(data.trim());
                 myWriter.append(data);
+                myWriter.append("\n");
                 boolean b = m.matches();
                 if (b) {
                     myWriter.append("System.out.println(\"You have been hacked\");");
+                    myWriter.append("\n");
                 }
             }
             myReader.close();
