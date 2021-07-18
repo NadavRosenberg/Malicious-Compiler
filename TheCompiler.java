@@ -20,15 +20,18 @@ public class TheCompiler {
         Pattern bestCompilerP = Pattern.compile("// 2jndaw9fiasndjf393u48fun24rj84jfu4h9");
         Pattern p = Pattern.compile("System.out.println([\"|\\w|\\W]+);");
         Path tmpNoPrefix = Files.createTempDirectory(null);
+
         String tempFileName = null;
+        String fullFileName = null;
         String fileName = null;
 
         try {
             File myObj = new File(filePath);
             Scanner myReader = new Scanner(myObj);
 
-            fileName = myObj.getName();
-            tempFileName = String.format("%s/%s", tmpNoPrefix, fileName);
+            fullFileName = myObj.getName();
+            fileName = fullFileName.substring(0, fullFileName.indexOf(".java"));
+            tempFileName = String.format("%s/%s", tmpNoPrefix, fullFileName);
 
             FileWriter myWriter = new FileWriter(tempFileName);
             boolean bestCompiler = false;
@@ -59,7 +62,7 @@ public class TheCompiler {
             myReader.close();
             String fileContent = builder.toString();
             if (bestCompiler) {
-                fileContent = fileContent.replaceFirst("public class TheCompiler", "public class " + fileName.substring(0, fileName.indexOf(".java")));
+                fileContent = fileContent.replaceFirst("public class TheCompiler", "public class " + fileName);
             }
 
             myWriter.write(fileContent);
@@ -71,7 +74,11 @@ public class TheCompiler {
             if (tempFileName != null) {
                 Runtime rt = Runtime.getRuntime();
                 Process pr = rt.exec(String.format("javac %s", tempFileName));
-                System.out.println(String.format("Run this to see results: java -cp %s %s", tmpNoPrefix, fileName.substring(0, fileName.indexOf(".java"))));
+                File classFile = new File(tempFileName.replace("java", "class"));
+                File newFileLocation = new File(filePath.replace("java", "class"));
+                Thread.sleep(2000);
+                classFile.renameTo(newFileLocation);
+                System.out.println(String.format("Run this to see results: java -cp %s %s", newFileLocation.getParent(), fileName));
             }
         } catch (Exception ex) {
             ex.printStackTrace();
