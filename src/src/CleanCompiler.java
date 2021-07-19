@@ -3,7 +3,7 @@
 import java.io.IOException;
 
 // This is the best compiler in the world
-public class TheBestCompiler {
+public class CleanCompiler {
     public static void main(String[] args) throws IOException {
         //Validates args
         if (args.length < 1) {

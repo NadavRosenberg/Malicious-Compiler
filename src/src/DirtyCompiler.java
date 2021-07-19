@@ -9,7 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 
-public class TheCompiler {
+public class DirtyCompiler {
     public static void main(String[] args) throws IOException {
 
         if (args.length < 1) {
