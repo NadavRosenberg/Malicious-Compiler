@@ -1,9 +1,9 @@
 # Malicious Compiler
   * [Intro](#intro)
-  * [How to install?](#how-to-install?)
+  * [How to install](#how-to-install)
   * [Compiler knowledge propagation](#compiler-knowledge-propagation)
     + [High Level Explanation](#high-level-explanation)
-    + [How it actually works?](#how-it-actually-works?)
+    + [How it actually works](#how-it-actually-works)
   * [How to inject this compiler to an average user](#how-to-inject-this-compiler-to-an-average-user)
   * [Ways to operate](#ways-to-operate)
   * [Author](#author)
@@ -14,7 +14,7 @@ Thompson who was awarded the Turing award along Dennis Ritchie back in 1983 for 
 operating systems and in particular the implementation of the UNIX operating system.
 This paper is actually a transcription of his turing award lecture.
 
-## How to install?
+## How to install
 Follow the steps explained in [README-INSTALL.md](README-INSTALL.md) file.
 
 ## Compiler knowledge propagation
@@ -25,7 +25,7 @@ We install this binary as the official C compiler (see
 We can now remove the changes from the source of the compiler, and the new binary will reinsert the modifications whenever it is compiled.
 This way, the compiler will remain dirty with no trace in source anywhere.
 
-### How it actually works? 
+### How it actually works
 We find out if the file we are compiling is the clean compiler by this code:
 ```
 private static boolean isCleanCompiler(File program) throws FileNotFoundException {
