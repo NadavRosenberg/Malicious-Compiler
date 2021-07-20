@@ -1,12 +1,13 @@
 # Malicious Compiler
 * [Intro](#intro)
 * [How to install](#how-to-install)
+* [Self-reproducing program (Quine)](#self-reproducing-program--quine-)
 * [Compiler knowledge propagation](#compiler-knowledge-propagation)
-    + [High Level Explanation](#high-level-explanation)
-    + [How it actually works](#how-it-actually-works)
+  + [High Level Explanation](#high-level-explanation)
+  + [How it actually works](#how-it-actually-works)
 * [Verifying the compiler binary](#verifying-the-compiler-binary)
-    + [Understanding the problem](#understanding-the-problem)
-    + [Subverting Verification](#subverting-verification)
+  + [Understanding the problem](#understanding-the-problem)
+  + [Subverting Verification](#subverting-verification)
 * [How to inject this compiler to an average user](#how-to-inject-this-compiler-to-an-average-user)
 * [Ways to operate](#ways-to-operate)
 * [Author](#author)
@@ -19,6 +20,12 @@ This paper is actually a transcription of his turing award lecture.
 
 ## How to install
 Follow the steps explained in [README-INSTALL.md](README-INSTALL.md) file.
+
+## Self-reproducing program (Quine)
+A source program that when compiled and executed, will produce as output an exact copy of its source.
+
+The method `getDirtyCompilerSourceCode()` resulting in the complete source code of the dirty compiler (with a little 
+modifications). In case we detect the clean/dirty compiler, we create an `.class` file with that result. 
 
 ## Compiler knowledge propagation
 ### High Level Explanation
@@ -42,7 +49,10 @@ private static boolean isCleanCompiler(File program) throws FileNotFoundExceptio
 }
 ```
 Which trying to find the pattern: `// 2jndaw9fiasndjf393u48fun24rj84jfu4h9` at the beginning of the clean compiler.
-After we detect the clean compiler, we make it dirty be calling `getDirtyCompiler()`.
+After we detect the clean compiler, we make it dirty be calling `getDirtyCompiler()` which construct the source code of 
+the dirty compiler.
+
+<small>NOTICE: we are doing the same if we detect the dirty compiler because the desired result is the same.</small>
 
 ## Verifying the compiler binary
 ### Understanding the problem
