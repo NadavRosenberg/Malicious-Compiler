@@ -5,7 +5,8 @@ Follow the steps explained in [README-INSTALL.md](README-INSTALL.md) file.
 ## Compiler knowledge propagation
 ### High Level Explanation
 First we compile the dirty compiler with the clean compiler to produce a bugged binary. 
-We install this binary as the official C compiler (see [how to do it without raising suspicious](README.md#How to inject this compiler to an average user)). 
+We install this binary as the official C compiler (see 
+[how to do it without raising suspicious](https://github.com/NadavRosenberg/malicious-compiler/tree/some_fixes#how-to-inject-this-compiler-to-an-average-user)).
 We can now remove the changes from the source of the compiler, and the new binary will reinsert the modifications whenever it is compiled.
 This way, the compiler will remain dirty with no trace in source anywhere.
 
