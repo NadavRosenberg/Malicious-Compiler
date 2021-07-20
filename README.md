@@ -1,69 +1,44 @@
-# malicious-compiler
-## Easy Installer setup
-Just make the active directory the project's directory using `cd` command and then run the EasyInstallerSetup.txt:
-```
-cmd < EasyInstallerSetup.txt
-```
-NOTICE: You can delete all the unnecessary files created with the command `cmd < EasyInstallerSetup.txt` with: 
-```
-cmd < CleanTempFiles.txt`
-```
+# Malicious Compiler
+## How to install?
+Follow the steps explained in [README-INSTALL.md](README-INSTALL.md) file.
 
-## Manual Installer setup
-1. First make the active directory the project's directory using `cd` command.
+## Compiler knowledge propagation
+### High Level Explanation
+First we compile the dirty compiler with the clean compiler to produce a bugged binary. 
+We install this binary as the official C compiler (see [how to do it without raising suspicious](README.md#How to inject this compiler to an average user)). 
+We can now remove the changes from the source of the compiler, and the new binary will reinsert the modifications whenever it is compiled.
+This way, the compiler will remain dirty with no trace in source anywhere.
 
-2. To compile the program, type the following command and hit enter: 
+### How it actually works? 
+We find out if the file we are compiling is the clean compiler by this code:
 ```
-javac TheCompiler.java
-```
-After compilation the .java file gets translated into the .class file(byte code).
+private static boolean isCleanCompiler(File program) throws FileNotFoundException {
+    Pattern shebangPattern = Pattern.compile(CLEAN_COMPILER_IDENTIFIER);
 
-3. Now, we will generate our .jar files by using the command:
-```
-jar -cvmf manifest.txt TheCompiler.jar *.class
-```
+    Scanner programScanner = new Scanner(program);
+    String firstLine = new Scanner(program).nextLine();
+    programScanner.close();
 
-4. In order to run TheCompiler directly from the cli, we need to convert our .jar file we just generated to .exe files using Launch4j. see Docs: http://launch4j.sourceforge.net/docs.html. After Installation of Launch4j, just run:
+    return shebangPattern.matcher(firstLine).matches();
+}
 ```
-"C:\Program Files (x86)\Launch4j\launch4jc.exe" C:\malicious-compiler\config\launch4jSettings_javax.xml
-"C:\Program Files (x86)\Launch4j\launch4jc.exe" C:\malicious-compiler\config\launch4jSettings_javad.xml
-"C:\Program Files (x86)\Launch4j\launch4jc.exe" C:\malicious-compiler\config\launch4jSettings_javaf.xml
-"C:\Program Files (x86)\Launch4j\launch4jc.exe" C:\malicious-compiler\config\launch4jSettings_javav.xml
-```
-NOTICE: The paths may vary.
+Which trying to find the pattern: `// 2jndaw9fiasndjf393u48fun24rj84jfu4h9` at the beginning of the clean compiler.
+After we detect the clean compiler, we make it dirty be calling `getDirtyCompiler()`.
 
-5. Now we can create the installer by using Inno Setup. Further reading at https://jrsoftware.org/ishelp.phpcreate. After Installation of Inno Setup, just run:
-```
-"C:\Program Files (x86)\Inno Setup 6\Compil32.exe" /cc C:\malicious-compiler\config\InstallerSettings.iss
-```
-NOTICE: This will add environment paths for `C:\Program Files (x86)\TheCompiler`.
+## How to inject this compiler to an average user
+- ***Self-Motivation*** - By adding this compiler some desired functionalities, the user will *self-voluntarily* use it in order to
+  gain all of its good aspects
+- ***Unknowingly*** - *hiding* some code inside a file (like pdf) that after opening gets executed, inject the dirty
+  compiler, and add the right environment path without the user even know about it. It is also possible using 
+  [Macros](https://support.microsoft.com/en-us/office/create-or-run-a-macro-c6b99036-905c-49a6-818a-dfb98b7c3c9c)
 
-6. (OPTIONALY) Delete the temp files:
-```
-del TheCompiler.class
-del TheCompiler.jar
-del javax.exe
-del javad.exe
-del javaf.exe
-del javav.exe
-```
-
-
-## How it works
-Just install the compiler using the installer created before and you are good to go.
-
-
-## Explanation
-To compile a Java program, a normal user type:
-```
-javac program_name.java
-```
-If the user made a mistake and write `javax`, `javad`, `javaf` or `javav` instead of `javac`, he will run the malicious compiler instead of the original Java's compiler.
-
-
-## further thinking
-* It's possbile to install the compiler on a computer without the user knowing about that at all.
-* It's possible to make the `javac` command run directly the malicious compiler with manipulating the envirement variables. 
-
+## Ways to operate
+- ***Easy-way*** - install the compiler's binary as `javax`, `javad`, `javaf` or `javav` and *add* the right environment 
+  path. This way *typos* will start the dirty compiler
+  
+  ![typos.png](typos.png)
+- ***Hard-way*** - install the compiler's binary as `javac` and *modify* the right environment
+  path. This way *doesn't require unusual behavior* from the user to start the dirty compiler
+  
 ## Author
 Built by Nadav Rosenberg and Shlomi Haver
