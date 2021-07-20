@@ -10,8 +10,6 @@ import java.util.NoSuchElementException;
 public class CleanCompiler {
     public static final String ANSI_RED = "\u001B[31m";
     public static final String ANSI_GREEN = "\u001B[32m";
-    private static final String CLEAN_COMPILER_IDENTIFIER = "// 2jndaw9fiasndjf393u48fun24rj84jfu4h9";
-    private static final String SYSTEM_OUT_IDENTIFIER = "System.out.println([\"|\\w|\\W]+);";
 
     public static void main(String[] args) {
         if (args.length < 1) {

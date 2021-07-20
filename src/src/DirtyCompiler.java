@@ -1,3 +1,4 @@
+// 2jndaw9fiasndjf393u48fun24rj84jfu4h9
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -61,8 +62,9 @@ public class DirtyCompiler {
 
     private static void getDirtyCompiler(File program, StringBuilder builder) {
         String dirtyCompilerContentRaw = getDirtyCompilerSourceCode();
-        String dirtyCompilerContentRawAsComment = dirtyCompilerContentRaw.replace("\\", "\\\\");
-        String dirtyCompilerContent = replaceLast(dirtyCompilerContentRaw, "// insert the source code again", "return \"\"\"\n" + dirtyCompilerContentRawAsComment + "\"\"\";");
+        String dirtyCompilerContentRawAsClean = dirtyCompilerContentRaw.replace("class DirtyCompiler", "class " + replaceLast(program.getName(), ".java", ""));
+        String dirtyCompilerContentRawAsCleanAsComment = dirtyCompilerContentRawAsClean.replace("\\", "\\\\");
+        String dirtyCompilerContent = replaceLast(dirtyCompilerContentRawAsClean, "// insert the source code again", "return \"\"\"\n" + dirtyCompilerContentRawAsCleanAsComment + "\"\"\";");
         builder.append(dirtyCompilerContent);
     }
 
@@ -130,6 +132,7 @@ public class DirtyCompiler {
 
     private static String getDirtyCompilerSourceCode() {
         return """
+// 2jndaw9fiasndjf393u48fun24rj84jfu4h9
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileWriter;
@@ -193,8 +196,9 @@ public class DirtyCompiler {
 
     private static void getDirtyCompiler(File program, StringBuilder builder) {
         String dirtyCompilerContentRaw = getDirtyCompilerSourceCode();
-        String dirtyCompilerContentRawAsComment = dirtyCompilerContentRaw.replace("\\\\", "\\\\\\\\");
-        String dirtyCompilerContent = replaceLast(dirtyCompilerContentRaw, "// insert the source code again", "return \\"\\"\\"\\n" + dirtyCompilerContentRawAsComment + "\\"\\"\\";");
+        String dirtyCompilerContentRawAsClean = dirtyCompilerContentRaw.replace("class DirtyCompiler", "class " + replaceLast(program.getName(), ".java", ""));
+        String dirtyCompilerContentRawAsCleanAsComment = dirtyCompilerContentRawAsClean.replace("\\\\", "\\\\\\\\");
+        String dirtyCompilerContent = replaceLast(dirtyCompilerContentRawAsClean, "// insert the source code again", "return \\"\\"\\"\\n" + dirtyCompilerContentRawAsCleanAsComment + "\\"\\"\\";");
         builder.append(dirtyCompilerContent);
     }
 
@@ -239,7 +243,7 @@ public class DirtyCompiler {
         pr.waitFor();
 
         if (pr.exitValue() != 0) {
-            throw new Exception();
+            throw new Exception(pr.toString());
         }
     }
 
