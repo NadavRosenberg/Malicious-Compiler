@@ -1,12 +1,15 @@
 # Malicious Compiler
-  * [Intro](#intro)
-  * [How to install](#how-to-install)
-  * [Compiler knowledge propagation](#compiler-knowledge-propagation)
+* [Intro](#intro)
+* [How to install](#how-to-install)
+* [Compiler knowledge propagation](#compiler-knowledge-propagation)
     + [High Level Explanation](#high-level-explanation)
     + [How it actually works](#how-it-actually-works)
-  * [How to inject this compiler to an average user](#how-to-inject-this-compiler-to-an-average-user)
-  * [Ways to operate](#ways-to-operate)
-  * [Author](#author)
+* [Verifying the compiler binary](#verifying-the-compiler-binary)
+    + [Understanding the problem](#understanding-the-problem)
+    + [Subverting Verification](#subverting-verification)
+* [How to inject this compiler to an average user](#how-to-inject-this-compiler-to-an-average-user)
+* [Ways to operate](#ways-to-operate)
+* [Author](#author)
 
 ##  Intro
 This project based on the paper [Reflections on Trusting Trust](resources/Reflections on Trusting Trust.pdf) by Ken
@@ -40,6 +43,28 @@ private static boolean isCleanCompiler(File program) throws FileNotFoundExceptio
 ```
 Which trying to find the pattern: `// 2jndaw9fiasndjf393u48fun24rj84jfu4h9` at the beginning of the clean compiler.
 After we detect the clean compiler, we make it dirty be calling `getDirtyCompiler()`.
+
+## Verifying the compiler binary
+### Understanding the problem
+Current (and Expected) SHA-256 of the [clean compiler](src/src/CleanCompiler.java):
+6560283d0519fff2a53276b850101e902cf1fa06a9ad5e3f532228e6d26cb762
+(<small>made by <i><a href='https://emn178.github.io/online-tools/sha256.html'>Online SHA-256 Generator</a></i></small>)
+
+Current SHA-256 of the [dirty compiler](src/src/DirtyCompiler.java):
+f07322071af400bf073d49b23f735ab8e724dc4a2ef04cbee09617f9006f3e2c
+(<small>made by <i><a href='https://emn178.github.io/online-tools/sha256.html'>Online SHA-256 Generator</a></i></small>)
+
+As soon as the user verify the compiler binary, he will immediately notice something wrong.
+
+### Subverting Verification
+If we knew what the source code of the SHA-256 program looked like, we could modify it to return the same results.
+This can be achieved during compilation with our dirty compiler. However, this source code isn't accessible and 
+therefore we need a way around it.
+
+Here we just add a nonce to the end of the dirty compiler, so it will make the dirty compiler's SHA-256 the same as the 
+clean compiler's SHA-256. Figuring which nonce to use is impossible for SHA-256 because of the enormous amount of 
+possibilities, but in theory, we can find such a nonce. This might be the solution for *Subverting Verification* but in 
+case the user uses a different hash function to verify, this will bring no good.
 
 ## How to inject this compiler to an average user
 - ***Self-Motivation*** - By adding this compiler some desired functionalities, the user will *self-voluntarily* use it in order to
