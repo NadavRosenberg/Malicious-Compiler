@@ -1,7 +1,7 @@
 # Malicious Compiler
 * [Intro](#intro)
 * [How to install](#how-to-install)
-* [Self-reproducing program (Quine)](#self-reproducing-program--quine-)
+* [Self-reproducing program (Quine)](#self-reproducing-program-quine)
 * [Compiler knowledge propagation](#compiler-knowledge-propagation)
   + [High Level Explanation](#high-level-explanation)
   + [How it actually works](#how-it-actually-works)
@@ -13,7 +13,7 @@
 * [Author](#author)
 
 ##  Intro
-This project based on the paper [Reflections on Trusting Trust](resources/Reflections on Trusting Trust.pdf) by Ken
+This project based on the paper [Reflections on Trusting Trust](resources/Reflections%20on%20Trusting%20Trust.pdf) by Ken
 Thompson who was awarded the Turing award along Dennis Ritchie back in 1983 for their contribution to the design of 
 operating systems and in particular the implementation of the UNIX operating system.
 This paper is actually a transcription of his turing award lecture.
