@@ -43,7 +43,7 @@ public class CleanCompiler {
 
     private static void generateClassFile(File program, StringBuilder builder) throws Exception {
         Path tempDirectory = Files.createTempDirectory(null);
-        String tempFileName = String.format("%s\\%s", tempDirectory, program.getName());
+        String tempFileName = Path.of(tempDirectory.toString(), program.getName()).toString();
 
         saveToTemp(builder, tempFileName);
         runOriginalCompiler(tempFileName);
@@ -81,8 +81,8 @@ public class CleanCompiler {
     }
 
     private static String getInstruction(File program) {
-        String ClassFile = replaceLast(program.getName(), "java", "");
-        String ClassPath = program.getPath().substring(0, program.getPath().lastIndexOf("\\"));
-        return String.format("Run this to see results: java -cp %s %s", ClassPath, ClassFile);
+        String classFile = replaceLast(program.getName(), "java", "");
+        String classPath = Path.of(program.getPath()).getParent().toString();
+        return String.format("Run this to see results: java -cp %s %s", classPath, classFile);
     }
 }
