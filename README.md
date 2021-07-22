@@ -22,7 +22,7 @@ This paper is actually a transcription of his turing award lecture.
 Follow the steps explained in [README-INSTALL.md](README-INSTALL.md) file.
 
 ## Self-reproducing program (Quine)
-A source program that when compiled and executed, will produce as output an exact copy of its source.
+A source program that outputs an exact copy of its source, when compiled.
 
 The method `getDirtyCompilerSourceCode()` resulting in the complete source code of the dirty compiler (with a little 
 modifications). In case we detect the clean/dirty compiler, we create an `.class` file with that result. 
