@@ -2,26 +2,25 @@
 
 ## Requirements
 
-Please use [openjdk version 16](https://java.tutorials24x7.com/blog/how-to-install-openjdk-16-on-windows)
-We assume the user uses windows, though it also works on a mac environment.
-
+* [Java SE Development Kit 16+](https://www.oracle.com/java/technologies/javase-jdk16-downloads.html)
+* Windows OS (works also on mac OS)
 
 ## How to test it
 
 We create an [HelloWorld.java](src/HelloWorld.java) program to demonstrate tha purpose of our project.
 
-We assume that the path to the project's src directory is: `C:\malicious-compiler\src` and we will now reference to it as `<source_path>`.
+We assume that the path to the project's src directory is: `C:\malicious-compiler\src`.
 
 We will start by compiling the [HelloWorld.java](src/HelloWorld.java) using this command:
 
 ```
-javac <source_path>\HelloWorld.java
+javac C:\malicious-compiler\src\HelloWorld.java
 ```
 
 And then running it using this command:
 
 ```
-java -cp <source_path> HelloWorld
+java -cp C:\malicious-compiler\src HelloWorld
 ```
 
 You should see the following program:
@@ -36,12 +35,12 @@ And this logs:
 We first start by compiling dirty compiler using the command: 
 
 ```
-javac <source_path>\DirtyCompiler.java
+javac C:\malicious-compiler\src\DirtyCompiler.java
 ```
 
 You will get a DirtyCompiler.class file. After this you can just call:
 ```
-java -cp <source_path> DirtyCompiler <source_path>\HelloWorld.java
+java -cp C:\malicious-compiler\src DirtyCompiler C:\malicious-compiler\src\HelloWorld.java
 ```
 
 Which will output the following response:
@@ -50,7 +49,7 @@ Which will output the following response:
 
 Then, you can just run the program by using:
 ```
-java -cp <source_path> HelloWorld
+java -cp C:\malicious-compiler\src HelloWorld
 ```
 
 This time you will see the same program running, but with our injection in the logs
@@ -67,13 +66,13 @@ Using this command you will get this [CleanCompiler.java](src/CleanCompiler.java
 
 Run this:
 ```
-java -cp <source_path> DirtyCompiler <source_path>\CleanCompiler.java
+java -cp C:\malicious-compiler\src DirtyCompiler C:\malicious-compiler\src\CleanCompiler.java
 ```
 
 Now compile the [HelloWorld.java](src/HelloWorld.java) program using our clean compiler:
 
 ```
-java -cp <source_path> CleanCompiler <source_path>\HelloWorld.java
+java -cp C:\malicious-compiler\src CleanCompiler C:\malicious-compiler\src\HelloWorld.java
 ```
 
 and the result will be similar to the one we got [here](#using-our-compilers).
