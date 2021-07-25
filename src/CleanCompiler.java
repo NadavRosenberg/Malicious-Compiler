@@ -80,7 +80,7 @@ public class CleanCompiler {
 
     private static String getInstruction(File program) {
         String classFile = replaceLast(program.getName(), "java", "");
-        String classPath = Path.of(program.getPath()).getParent().toString();
+        String classPath = Path.of(program.getAbsolutePath()).getParent().toAbsolutePath().toString();
         return String.format("Run this to see results: java -cp %s %s", classPath, classFile);
     }
 }
