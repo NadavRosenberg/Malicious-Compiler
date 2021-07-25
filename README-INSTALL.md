@@ -60,12 +60,12 @@ This time you will see the same program running but with different logs.
 
 So far we saw the implication of using our dirty compiler, but what if a user chooses to use the clean compiler?
 We assume that the paths in the user machine are already set to our dirty-compiler and he now wants to compile the clean compiler.
-Using this command you will get this [CleanCompiler.java](src/CleanCompiler.java) which looks pretty straightforward with our dirty-compiler abilities:
+Using this command:
 
-Run this:
 ```
 java -cp C:\malicious-compiler\src DirtyCompiler C:\malicious-compiler\src\CleanCompiler.java
 ```
+we are compiling the [CleanCompiler.java](src/CleanCompiler.java) and injecting into it the dirty-compiler abilities.
 
 Now compile the [HelloWorld.java](src/HelloWorld.java) program using our clean compiler:
 
