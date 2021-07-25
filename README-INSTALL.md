@@ -52,16 +52,14 @@ Then, you can just run the program by using:
 java -cp C:\malicious-compiler\src HelloWorld
 ```
 
-This time you will see the same program running, but with our injection in the logs
+This time you will see the same program running but with different logs.
 
 ![hello_world_dirty_logs](./screenshots/hello_world_dirty_logs.png)
 
 ## Now what?
 
 So far we saw the implication of using our dirty compiler, but what if a user chooses to use the clean compiler?
-
 We assume that the paths in the user machine are already set to our dirty-compiler and he now wants to compile the clean compiler.
-
 Using this command you will get this [CleanCompiler.java](src/CleanCompiler.java) which looks pretty straightforward with our dirty-compiler abilities:
 
 Run this:
@@ -75,7 +73,7 @@ Now compile the [HelloWorld.java](src/HelloWorld.java) program using our clean c
 java -cp C:\malicious-compiler\src CleanCompiler C:\malicious-compiler\src\HelloWorld.java
 ```
 
-and the result will be similar to the one we got [here](#using-our-compilers).
+and the result will be similar [as before](#using-our-compilers).
 
 
 ## Author
