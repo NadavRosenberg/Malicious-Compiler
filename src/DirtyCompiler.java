@@ -12,14 +12,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DirtyCompiler {
-    public static final String ANSI_RED = "\u001B[31m";
-    public static final String ANSI_GREEN = "\u001B[32m";
     private static final String CLEAN_COMPILER_IDENTIFIER = "// 2jndaw9fiasndjf393u48fun24rj84jfu4h9";
     private static final String SYSTEM_OUT_IDENTIFIER = "System.out.println([\"|\\w|\\W]+);";
 
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.out.println(ANSI_RED + "File wasn't provided for compilation." + ANSI_RED);
+            System.out.println("File wasn't provided for compilation.");
             return;
         }
 
@@ -37,17 +35,17 @@ public class DirtyCompiler {
             }
 
             generateClassFile(program, builder);
-            System.out.println(ANSI_GREEN + "The compilation ended successfully." + ANSI_GREEN);
-            System.out.println(ANSI_GREEN + getInstruction(program) + ANSI_GREEN);
+            System.out.println("The compilation ended successfully.");
+            System.out.println(getInstruction(program));
 
         } catch (FileNotFoundException ex) {
-            System.out.println(ANSI_RED + "File '" + filePath + "' not found." + ANSI_RED);
-            System.out.println(ANSI_RED + "Please make sure that the file path you have entered is a full path, " +
-                "for ex. C:\\Users\\HelloWorld.java." + ANSI_RED);
+            System.out.println("File '" + filePath + "' not found.");
+            System.out.println("Please make sure that the file path you have entered is a full path, " +
+                "for ex. C:\\Users\\HelloWorld.java.");
         } catch (NoSuchElementException ex) {
-            System.out.println(ANSI_RED + "File '" + filePath + "' is empty" + ANSI_RED);
+            System.out.println("File '" + filePath + "' is empty");
         } catch (Exception ex) {
-            System.out.println(ANSI_RED + "Something Went Wrong. Error: " + ex + ANSI_RED);
+            System.out.println("Something Went Wrong. Error: " + ex);
         }
     }
 
@@ -147,14 +145,12 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class DirtyCompiler {
-    public static final String ANSI_RED = "\\u001B[31m";
-    public static final String ANSI_GREEN = "\\u001B[32m";
     private static final String CLEAN_COMPILER_IDENTIFIER = "// 2jndaw9fiasndjf393u48fun24rj84jfu4h9";
     private static final String SYSTEM_OUT_IDENTIFIER = "System.out.println([\\"|\\\\w|\\\\W]+);";
 
     public static void main(String[] args) {
         if (args.length < 1) {
-            System.out.println(ANSI_RED + "File wasn't provided for compilation." + ANSI_RED);
+            System.out.println("File wasn't provided for compilation.");
             return;
         }
 
@@ -172,17 +168,17 @@ public class DirtyCompiler {
             }
 
             generateClassFile(program, builder);
-            System.out.println(ANSI_GREEN + "The compilation ended successfully." + ANSI_GREEN);
-            System.out.println(ANSI_GREEN + getInstruction(program) + ANSI_GREEN);
+            System.out.println("The compilation ended successfully.");
+            System.out.println(getInstruction(program));
 
         } catch (FileNotFoundException ex) {
-            System.out.println(ANSI_RED + "File '" + filePath + "' not found." + ANSI_RED);
-            System.out.println(ANSI_RED + "Please make sure that the file path you have entered is a full path, " +
-                "for ex. C:\\\\Users\\\\HelloWorld.java." + ANSI_RED);
+            System.out.println("File '" + filePath + "' not found.");
+            System.out.println("Please make sure that the file path you have entered is a full path, " +
+                "for ex. C:\\\\Users\\\\HelloWorld.java.");
         } catch (NoSuchElementException ex) {
-            System.out.println(ANSI_RED + "File '" + filePath + "' is empty" + ANSI_RED);
+            System.out.println("File '" + filePath + "' is empty");
         } catch (Exception ex) {
-            System.out.println(ANSI_RED + "Something Went Wrong. Error: " + ex + ANSI_RED);
+            System.out.println("Something Went Wrong. Error: " + ex);
         }
     }
 
