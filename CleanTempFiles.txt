@@ -1,6 +1,0 @@
-del TheCompiler.class
-del TheCompiler.jar
-del javax.exe
-del javad.exe
-del javaf.exe
-del javav.exe
