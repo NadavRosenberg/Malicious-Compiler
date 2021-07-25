@@ -6,7 +6,7 @@ cmd < EasyInstallerSetup.txt
 ```
 NOTICE: You can delete all the unnecessary files created with the command `cmd < EasyInstallerSetup.txt` with: 
 ```
-cmd < CleanTempFiles.txt`
+cmd < CleanTempFiles.txt
 ```
 
 ## Manual Installer setup
